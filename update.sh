@@ -1,156 +1,177 @@
 #!/bin/bash
 
-set -e
+# ================================
+# 🚀 AI Copilot DevSecOps - Robust Update Script
+# ================================
 
-echo "🚀 Atualizando projeto DevSecOps..."
+set -euo pipefail
 
-PROJECT_NAME="ai-copilot-devsecops"
-
+echo "🚀 Iniciando atualização robusta..."
 
 # ================================
-# 📁 Garantir estrutura
+# 📍 Detectar diretório do projeto
 # ================================
-mkdir -p flows docs .github/workflows
+if [ -d ".git" ]; then
+    PROJECT_DIR=$(pwd)
+    echo "📁 Rodando dentro do projeto: $PROJECT_DIR"
+else
+    if [ -d "ai-copilot-devsecops" ]; then
+        cd ai-copilot-devsecops
+        PROJECT_DIR=$(pwd)
+        echo "📁 Encontrado: $PROJECT_DIR"
+    else
+        echo "❌ Execute dentro do projeto ou na pasta pai"
+        exit 1
+    fi
+fi
 
 # ================================
-# 📄 Atualizar README
+# 📁 Estrutura
 # ================================
-cat <<EOF > README.md
-# 🤖 AI Copilot for Customer Support (DevSecOps)
+echo "📁 Garantindo estrutura..."
 
-Projeto de automação de atendimento utilizando Microsoft Copilot Studio com foco em arquitetura, IA e DevSecOps.
+mkdir -p flows docs .github/workflows flows/topics flows/copilot
 
----
+# ================================
+# 📄 Função segura
+# ================================
+create_file() {
+    FILE_PATH=$1
+    CONTENT=$2
+
+    if [ -f "$FILE_PATH" ]; then
+        echo "⚠️ Atualizando $FILE_PATH"
+    else
+        echo "🆕 Criando $FILE_PATH"
+    fi
+
+    echo "$CONTENT" > "$FILE_PATH"
+}
+
+# ================================
+# 📄 README
+# ================================
+create_file "README.md" "# 🤖 AI Copilot DevSecOps
+
+Projeto focado em automação de atendimento com Microsoft Copilot Studio, aplicando conceitos de IA e DevSecOps.
 
 ## 🚀 Features
-
-- Atendimento automatizado
+- Copilot personalizado
 - Fluxos conversacionais
-- Arquitetura escalável
-- Estrutura pronta para CI/CD
+- GenAI tuning
+- CI/CD
 
----
-
-## 🧠 Tecnologias
-
-- Microsoft Copilot Studio
-- Power Platform
+## 🧠 Stack
+- Copilot Studio
 - Azure
-- NLP
-
----
-
-## 🏗️ Arquitetura
-
-User -> Copilot -> Flow -> Power Platform -> Azure -> Response
-
----
+- Power Platform
 
 ## 🔐 DevSecOps
-
-- Segurança de entrada
+- Segurança
 - Monitoramento
-- Pipeline CI/CD
-- Versionamento com Git
-
----
+- Automação
 
 ## 📌 Autor
-
-Taisso Cout
-EOF
-
-# ================================
-# 📄 Criar CONTRIBUTING
-# ================================
-cat <<EOF > CONTRIBUTING.md
-# Contribuindo
-
-1. Fork do projeto
-2. Crie uma branch: feature/nova-feature
-3. Commit suas alterações
-4. Push e abra um Pull Request
-EOF
+Taisso Coutinho
+"
 
 # ================================
-# 📄 Criar LICENSE
+# 📄 DevSecOps
 # ================================
-cat <<EOF > LICENSE
-MIT License
-
-Copyright (c) 2026
-
-Permission is hereby granted...
-EOF
-
-# ================================
-# 📄 Melhorar DevSecOps doc
-# ================================
-cat <<EOF > docs/devsecops.md
-# DevSecOps
+create_file "docs/devsecops.md" "# DevSecOps
 
 ## Segurança
 - Validação de inputs
-- Sanitização de dados
 
 ## CI/CD
 - GitHub Actions
-- Automação de deploy
 
 ## Monitoramento
-- Logs centralizados
-- Alertas
+- Logs
+"
+
+# ================================
+# 📄 Topics
+# ================================
+create_file "docs/topics.md" "# Tópicos no Copilot
+
+## Conceitos
+- Intenções
+- Fluxos
 
 ## Boas práticas
-- Princípio do menor privilégio
-- Segregação de ambientes
-EOF
+- Clareza
+- Organização
+"
+
+create_file "flows/topics/conceitos.md" "# Conceitos
+
+Tópicos representam intenções do usuário."
+
+create_file "flows/topics/boas-praticas.md" "# Boas práticas
+
+- Fluxos claros
+- Respostas objetivas"
 
 # ================================
-# 📄 Criar CI/CD (GitHub Actions)
+# 📄 COPILOT PERSONALIZADO
 # ================================
-cat <<EOF > .github/workflows/ci.yml
-name: CI Pipeline
+create_file "docs/copilot-custom.md" "# Copilot Personalizado
+
+Criação de um Copilot do zero com foco em:
+
+- Fluxo conversacional
+- Tratamento de erros
+- Uso de GenAI
+"
+
+create_file "flows/copilot/start.md" "# Start
+
+Olá! Como posso ajudar?"
+
+create_file "flows/copilot/topic-custom.md" "# Customização
+
+Fluxos baseados em intenção do usuário."
+
+create_file "flows/copilot/error-handling.md" "# Erros
+
+Desculpe, não entendi. Pode reformular?"
+
+create_file "flows/copilot/genai-tuning.md" "# GenAI
+
+Controle de qualidade das respostas.
+"
+
+# ================================
+# 📄 CI/CD
+# ================================
+create_file ".github/workflows/ci.yml" "name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Echo project
-        run: echo "Projeto DevSecOps rodando CI"
-EOF
+      - uses: actions/checkout@v3
+      - run: echo 'CI rodando'
+"
 
 # ================================
-# 📄 Atualizar flows
+# 🔧 Git
 # ================================
-cat <<EOF > flows/greeting.md
-# Saudacao
+echo "🔧 Verificando mudanças..."
 
-Ola! 👋 Seja bem-vindo ao atendimento inteligente.
+if git diff --quiet && git diff --staged --quiet; then
+    echo "✅ Nada para commitar"
+else
+    git add .
+    git commit -m "feat: add copilot custom module + topics + CI/CD"
+    echo "✅ Commit realizado!"
+fi
 
-Como posso te ajudar hoje?
-
-Opcoes:
-- Servicos
-- Precos
-- Suporte
-EOF
-
-# ================================
-# 🔧 Git commit automático
-# ================================
-echo "🔧 Commitando mudanças..."
-
-git add .
-
-git commit -m "feat: upgrade project structure with CI/CD and documentation" || echo "Nada para commitar"
-
+echo ""
 echo "🚀 Atualização finalizada!"
+echo "👉 Agora rode: git push"

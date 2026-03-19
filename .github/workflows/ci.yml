@@ -1,16 +1,13 @@
-name: CI Pipeline
+name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - run: echo 'CI rodando'
 
-      - name: Echo project
-        run: echo "Projeto DevSecOps rodando CI"
