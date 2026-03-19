@@ -1,29 +1,42 @@
-# 🤖 AI Copilot de Atendimento com DevSecOps
+# 🤖 AI Copilot for Customer Support (DevSecOps)
 
-Projeto de um agente inteligente focado em automação de atendimento utilizando Microsoft Copilot Studio.
+Projeto de automação de atendimento utilizando Microsoft Copilot Studio com foco em arquitetura, IA e DevSecOps.
 
-## 🚀 Objetivo
-Automatizar atendimento, reduzir carga operacional e simular fluxo real de suporte.
+---
+
+## 🚀 Features
+
+- Atendimento automatizado
+- Fluxos conversacionais
+- Arquitetura escalável
+- Estrutura pronta para CI/CD
+
+---
 
 ## 🧠 Tecnologias
-- Copilot Studio
+
+- Microsoft Copilot Studio
 - Power Platform
 - Azure
-- IA / NLP
+- NLP
+
+---
 
 ## 🏗️ Arquitetura
-Usuario -> Copilot -> Fluxo -> Power Platform -> Azure -> Resposta
 
-## 🔁 Fluxos
-- Saudacao
-- Servicos
-- Precos
-- Suporte
+User -> Copilot -> Flow -> Power Platform -> Azure -> Response
+
+---
 
 ## 🔐 DevSecOps
-- Validacao de entrada
+
+- Segurança de entrada
 - Monitoramento
-- CI/CD
+- Pipeline CI/CD
+- Versionamento com Git
+
+---
 
 ## 📌 Autor
-Taisso Coutinho
+
+Taisso Cout

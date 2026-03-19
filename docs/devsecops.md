@@ -1,13 +1,17 @@
 # DevSecOps
 
-## Seguranca
-- Validacao de inputs
-- Controle de acesso
+## Segurança
+- Validação de inputs
+- Sanitização de dados
 
 ## CI/CD
 - GitHub Actions
-- Deploy automatizado
+- Automação de deploy
 
 ## Monitoramento
-- Logs
-- Metricas
+- Logs centralizados
+- Alertas
+
+## Boas práticas
+- Princípio do menor privilégio
+- Segregação de ambientes
